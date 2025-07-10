@@ -1,0 +1,56 @@
+<!--
+    Fichier : Pages/ManageDistrosPage.xaml
+    Auteur : Le Geek Zen
+    Description : Interface graphique pour la gestion des distributions WSL installées. Affiche la liste et propose des actions de gestion.
+    Emplacement : WSLManagerApp/Pages/ManageDistrosPage.xaml
+-->
+<UserControl x:Class="WSLManagerApp.Pages.ManageDistrosPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="600">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </UserControl.Resources>
+    <StackPanel Margin="20" VerticalAlignment="Top">
+        <TextBlock Text="Distributions installées" FontWeight="Bold" FontSize="18" Margin="0,0,0,20"/>
+        <DataGrid Name="DataGridDistros" AutoGenerateColumns="False" Height="Auto" Margin="0,0,0,10" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nom" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Version" Binding="{Binding Version}" Width="80"/>
+                <DataGridTextColumn Header="Statut" Binding="{Binding State}" Width="120"/>
+                <DataGridTemplateColumn Header="Par défaut" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="★" FontSize="16" Foreground="Goldenrod" HorizontalAlignment="Center" Visibility="{Binding IsDefault, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel HorizontalAlignment="Center" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal">
+                <Button Name="BtnRefresh" Width="40" Margin="0,0,10,0" Padding="8,4" ToolTip="Rafraîchir">
+                    <TextBlock Text="↻" FontSize="16" HorizontalAlignment="Center"/>
+                </Button>
+                <Button Name="BtnStartDistro" Width="40" Margin="0,0,10,0" Padding="8,4" ToolTip="Lancer">
+                    <TextBlock Text="▶️" FontSize="16" HorizontalAlignment="Center"/>
+                </Button>
+                <Button Name="BtnStopDistro" Width="40" Margin="0,0,10,0" Padding="8,4" ToolTip="Arrêter">
+                    <TextBlock Text="■" FontSize="16" HorizontalAlignment="Center"/>
+                </Button>
+                <Button Name="BtnSetDefault" Width="40" Margin="0,0,10,0" Padding="8,4" ToolTip="Définir par défaut">
+                    <TextBlock Text="★" FontSize="16" HorizontalAlignment="Center"/>
+                </Button>
+                <Button Name="BtnUnregisterDistro" Width="40" Margin="0,0,10,0" Padding="8,4" ToolTip="Supprimer">
+                    <TextBlock Text="🗑️" FontSize="16" HorizontalAlignment="Center"/>
+                </Button>
+                <Button Name="BtnUpgradeToWSL2" Width="40" Margin="0,0,10,0" Padding="8,4" ToolTip="Mettre à jour vers WSL2">
+                    <TextBlock Text="↑" FontSize="16" HorizontalAlignment="Center"/>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl> 

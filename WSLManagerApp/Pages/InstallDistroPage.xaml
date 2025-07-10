@@ -1,0 +1,46 @@
+<!--
+    Fichier : Pages/InstallDistroPage.xaml
+    Auteur : Le Geek Zen
+    Description : Interface graphique pour l'installation des distributions WSL. Permet de choisir, personnaliser et installer une distribution.
+    Emplacement : WSLManagerApp/Pages/InstallDistroPage.xaml
+    
+    Notes perso :
+    - La ComboBox affiche le FRIENDLY NAME mais on utilise le NAME pour l'installation.
+    - Le GroupBox permet de bien séparer la personnalisation/installation de la sélection de la distribution.
+    - La ProgressBar indéterminée s'affiche pendant l'installation (voir code-behind).
+    - Le TextBlock orange rappelle les caractères autorisés pour le nom personnalisé.
+    - Penser à bien garder x:Name sur les contrôles utilisés dans le code-behind.
+-->
+<UserControl x:Class="WSLManagerApp.Pages.InstallDistroPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="600">
+    <StackPanel Margin="20" VerticalAlignment="Top">
+        <TextBlock Text="Installer une distribution WSL" FontWeight="Bold" FontSize="18" Margin="0,0,0,20"/>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Name="BtnRefreshList" Width="40" Margin="0,0,10,0" Padding="8,4" ToolTip="Rafraîchir">
+                <TextBlock Text="↻" FontSize="16" HorizontalAlignment="Center"/>
+            </Button>
+            <ComboBox Name="ComboDistros" Width="300" VerticalContentAlignment="Center" SelectionChanged="ComboDistros_SelectionChanged"/>
+        </StackPanel>
+        <GroupBox x:Name="GroupBoxInstall" Header="Installation de la distribution" Margin="0,20,0,0" Padding="10">
+            <StackPanel>
+                <TextBlock Text="Le nom personnalisé ne doit contenir que des lettres, chiffres, tirets ou underscores, et aucun espace." Foreground="OrangeRed" Margin="0,0,0,5"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Nom personnalisé : " Width="150"/>
+                    <TextBox Name="TxtCustomName" Width="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Emplacement : " Width="150"/>
+                    <TextBox Name="TxtLocation" Width="200"/>
+                </StackPanel>
+                <CheckBox Name="ChkLaunchAfterInstall" Content="Lancer la distribution après installation" IsChecked="True" Margin="0,0,0,10"/>
+                <Button Name="BtnInstallDistro" Content="Installer la distribution" Width="200" Padding="8,4"/>
+                <ProgressBar x:Name="InstallProgressBar" Height="8" Margin="0,30,0,0" IsIndeterminate="True" Visibility="Collapsed"/>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</UserControl> 

@@ -1,0 +1,78 @@
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+categories:
+  - title: '🚀 Features'
+    labels:
+      - 'feature'
+      - 'enhancement'
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'fix'
+      - 'bugfix'
+      - 'bug'
+  - title: '🧰 Maintenance'
+    labels:
+      - 'chore'
+      - 'dependencies'
+  - title: '📚 Documentation'
+    labels:
+      - 'documentation'
+      - 'docs'
+template: |
+  ## 🎉 WSLManager v$RESOLVED_VERSION
+
+  $CHANGES
+
+  ## 📦 Téléchargement
+
+  ### Exécutable Autonome
+  - **WSLManager-v$RESOLVED_VERSION-Windows-x64.zip** : Exécutable autonome pour Windows x64
+  - **WSLManager-v$RESOLVED_VERSION-Windows-x64.zip.sha256** : Checksum SHA256 pour vérification
+
+  ### Installation
+  1. Téléchargez l'archive ZIP
+  2. Extrayez le contenu
+  3. Exécutez `WSLManagerApp.exe` en tant qu'administrateur
+
+  ## 🔧 Compilation depuis les Sources
+
+  ```bash
+  git clone https://github.com/$OWNER/$REPOSITORY.git
+  cd $REPOSITORY
+  git checkout v$RESOLVED_VERSION
+  dotnet restore
+  dotnet build --configuration Release
+  dotnet publish WSLManagerApp/WSLManagerApp.csproj --configuration Release --self-contained true --runtime win-x64
+  ```
+
+  ## 📋 Prérequis
+
+  - Windows 10 version 2004+ ou Windows 11
+  - Privilèges administrateur pour certaines fonctionnalités
+  - WSL 2 recommandé
+
+  ## 🆕 Nouveautés
+
+  $CHANGES
+
+  ## 🐛 Corrections
+
+  $CHANGES
+
+  ## 📚 Documentation
+
+  - [Guide d'installation](https://github.com/$OWNER/$REPOSITORY#installation)
+  - [Guide d'utilisation](https://github.com/$OWNER/$REPOSITORY#utilisation)
+  - [Dépannage](https://github.com/$OWNER/$REPOSITORY#dépannage)
+
+  ## 🤝 Contribution
+
+  Merci à tous les contributeurs qui ont participé à cette release !
+
+  ## 📝 Licence
+
+  Ce projet est distribué sous licence **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)**.
+
+  ---
+
+  **Développé avec ❤️ par Le Geek Zen** 

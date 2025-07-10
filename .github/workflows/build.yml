@@ -1,0 +1,67 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  release:
+    types: [ published ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+    
+    - name: Restore dependencies
+      run: dotnet restore WSLManagerApp/WSLManagerApp.csproj
+    
+    - name: Build
+      run: dotnet build WSLManagerApp/WSLManagerApp.csproj --no-restore --configuration Release
+    
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+    
+    - name: Publish
+      run: dotnet publish WSLManagerApp/WSLManagerApp.csproj --no-build --configuration Release --output ./publish --self-contained true --runtime win-x64 --verbosity normal
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: WSLManager-Windows-x64
+        path: ./publish/
+        retention-days: 30
+
+  create-release:
+    needs: build
+    runs-on: windows-latest
+    if: github.event_name == 'release'
+    
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: WSLManager-Windows-x64
+        path: ./release/
+    
+    - name: Create ZIP
+      run: |
+        $version = $env:GITHUB_REF_NAME -replace 'v', ''
+        Compress-Archive -Path "./release/*" -DestinationPath "WSLManager-v$version-Windows-x64.zip"
+    
+    - name: Upload Release Assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./WSLManager-v${{ github.event.release.tag_name }}-Windows-x64.zip
+        asset_name: WSLManager-v${{ github.event.release.tag_name }}-Windows-x64.zip
+        asset_content_type: application/zip 
