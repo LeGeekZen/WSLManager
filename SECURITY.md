@@ -8,7 +8,7 @@ Nous prenons la sécurité très au sérieux. Si vous découvrez une vulnérabil
 
 **NE créez PAS d'issue publique** pour les vulnérabilités de sécurité.
 
-Au lieu de cela, envoyez un email à : **security@legeekzen.com**
+Au lieu de cela, envoyez un email à : **stanislas@legeekzen.fr**
 
 ### Informations à Inclure
 
@@ -113,7 +113,7 @@ Aucun CVE attribué à ce jour.
 
 ### Équipe de Sécurité
 
-- **Email** : security@legeekzen.com
+- **Email** : stanislas@legeekzen.fr
 - **Réponse** : Sous 48h en semaine
 - **Urgences** : Indiquez "URGENT" dans l'objet
 
